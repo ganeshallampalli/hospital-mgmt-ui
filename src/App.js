@@ -3,7 +3,7 @@ import React from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import Switch from "react-bootstrap/esm/Switch";
 import { Route } from "react-router-dom";
-import "./App.css";
+import "./App.scss";
 import { FooterComponent } from "./Component/footer";
 import { NavbarConnectedComponent } from "./Component/NavbarComponent";
 import { dashboardRoutes } from "./Component/routes/dashboardRoutes";
