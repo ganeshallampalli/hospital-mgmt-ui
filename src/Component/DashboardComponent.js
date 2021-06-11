@@ -40,22 +40,6 @@ const DashboardComponent = (props) => {
   return (
     <Container>
       <Row>
-        <Col xs={{ span: 4, offset: 2 }}>
-          <Card className="text-center" style={{ minHeight: "314px" }}>
-            <Card.Header>Featured</Card.Header>
-            <Card.Body>
-              <Card.Title>Special title treatment</Card.Title>
-              <Card.Title>Special title treatment2</Card.Title>
-              <Card.Title>Special title treatment4</Card.Title>
-              <Card.Text>
-                With supporting text below as a natural lead-in to additional
-                content.
-              </Card.Text>
-              <Button variant="primary">Go somewhere</Button>
-            </Card.Body>
-            <Card.Footer className="text-muted">2 days ago</Card.Footer>
-          </Card>
-        </Col>
         <Col xs={{ span: 4 }}>
           <Card style={{ width: "18rem" }}>
             <Card.Img
@@ -63,7 +47,7 @@ const DashboardComponent = (props) => {
               src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRk79EO3xn3yLOVkqBmdbrWNlWBW48pPmodEw&usqp=CAU"
             />
             <Card.Body style={{ textAlign: "center" }}>
-              <Card.Title>Welcome To Med-Connect</Card.Title>
+              <Card.Title>Welcome To Hospital Management</Card.Title>
               <Card.Text>Our experts are here to help.</Card.Text>
               {user ? (
                 welcomeMessage

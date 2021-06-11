@@ -11,8 +11,8 @@ import { Appointment } from "../appointment/Appointment";
 import { AppointmentConnectedList } from "../appointment/AppointmentList";
 import { MyProfile } from "../MyProfile";
 import { ChangePassword } from "../ChangePassword";
-import {MedicineConnectedList} from "../medicine/MedicineList";
-import {Medicine} from "../medicine/Medicine";
+import {TestConnectedList} from "../test/TestList";
+import {Test} from "../test/Test";
 import {Help} from "../help/Help";
 import {HelpConnectedList} from "../help/HelpList";
 
@@ -43,16 +43,16 @@ export const dashboardRoutes = [
     component: <DoctorConnectedList></DoctorConnectedList>,
   },
   {
-    path: "/new-medicine",
-    component: <Medicine></Medicine>,
+    path: "/new-test",
+    component: <Test></Test>,
   },
   {
-    path: "/edit-medicine/:id",
-    component: <Medicine></Medicine>,
+    path: "/edit-test/:id",
+    component: <Test></Test>,
   },
   {
-    path: "/medicine-list",
-    component: <MedicineConnectedList></MedicineConnectedList>,
+    path: "/test-list",
+    component: <TestConnectedList></TestConnectedList>,
   },
   {
     path: "/edit-reception/:id",

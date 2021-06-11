@@ -4,15 +4,15 @@ import { Button, Col, Form, Pagination, Table } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 
-const MedicineList = (props) => {
+const TestsList = (props) => {
   const [result, setResult] = React.useState({});
   const [pageNo, setPageNo] = React.useState(0);
   const history = useHistory();
-  const medicineNameRef = React.createRef();
+  const testNameRef = React.createRef();
 
-  const getMedicinesList = (pageNo = 0) => {
+  const getTestsList = (pageNo = 0) => {
     axios
-      .get("/api/v1/medicine/all", { params: { pageNo } })
+      .get("/api/v1/test/all", { params: { pageNo } })
       .then((response) => {
         setPageNo(pageNo);
         setResult(response.data);
@@ -22,35 +22,35 @@ const MedicineList = (props) => {
       });
   };
   useEffect(() => {
-    getMedicinesList(); // eslint-disable-next-line react-hooks/exhaustive-deps
+    getTestsList(); // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  const deleteMedicine = (id) => {
+  const deleteTest = (id) => {
     axios
-      .delete("/api/v1/medicine/" + id)
+      .delete("/api/v1/test/" + id)
       .then((response) => {
-        getMedicinesList();
+        getTestsList();
       })
       .catch((response) => {
         console.log(response);
       });
   };
-  const newMedicine = () => {
-    history.push("/new-medicine");
+  const newTest = () => {
+    history.push("/new-test");
   };
-  const editMedicine = (id) => {
-    history.push("/edit-medicine/" + id);
+  const editTest = (id) => {
+    history.push("/edit-test/" + id);
   };
   const nextClick = (id) => {
-    getMedicinesList(pageNo + 1);
+    getTestsList(pageNo + 1);
   };
   const previousClick = (id) => {
-    getMedicinesList(pageNo - 1);
+    getTestsList(pageNo - 1);
   };
   const search = (id) => {
-    const medicineName = medicineNameRef.current.value;
+    const testName = testNameRef.current.value;
     axios
-      .get("/api/v1/medicine/search", {
-        params: { role: "ROLE_DOCTOR", medicineName, pageNo },
+      .get("/api/v1/test/search", {
+        params: { role: "ROLE_TECHNICIAN", testName, pageNo },
       })
       .then((response) => {
         setPageNo(0);
@@ -61,22 +61,22 @@ const MedicineList = (props) => {
       });
   };
   let editAllowed = false;
-  if (props?.user?.role === "ROLE_ADMIN") {
+  if ((props?.user?.role === "ROLE_ADMIN") || (props?.user?.role === "ROLE_TECHNICIAN")) {
     editAllowed = true;
   }
   return (
     <div>
       <Form.Row>
-        <h3>Medicine List</h3>
+        <h3>Tests</h3>
       </Form.Row>
       <Form.Row>
         <Form.Group as={Col} xs="4" controlId="validationFormik01">
-          <Form.Label>Medicine name</Form.Label>
+          <Form.Label>Test name</Form.Label>
           <Form.Control
             type="text"
-            name="medicineName"
+            name="testName"
             size="sm"
-            ref={medicineNameRef}
+            ref={testNameRef}
           />
         </Form.Group>
 
@@ -92,7 +92,7 @@ const MedicineList = (props) => {
           <tr>
             <th>#</th>
             <th>Patient Name</th>
-            <th>Medicine Name</th>
+            <th>Test Name</th>
             <th>Quantity</th>
             <th>Price</th>
             {editAllowed && <th></th>}
@@ -111,18 +111,18 @@ const MedicineList = (props) => {
               <tr key={row.id}>
                 <td>{row.id}</td>
                 <td>{row.patientName}</td>
-                <td>{row.medicineName}</td>
+                <td>{row.testName}</td>
                 <td>{row.quantity}</td>
                 <td>{row.price}</td>
                 {editAllowed && (
                   <td>
-                    <Button size="sm" onClick={() => editMedicine(row.id)}>
+                    <Button size="sm" onClick={() => editTest(row.id)}>
                       Edit
                     </Button>
                     <Button
                       size="sm"
                       className="ml-2"
-                      onClick={() => deleteMedicine(row.id)}
+                      onClick={() => deleteTest(row.id)}
                     >
                       Delete
                     </Button>
@@ -141,7 +141,7 @@ const MedicineList = (props) => {
           Previous
         </Pagination.Item>
         {editAllowed && (
-          <Pagination.Item onClick={newMedicine}>New</Pagination.Item>
+          <Pagination.Item onClick={newTest}>New</Pagination.Item>
         )}{" "}
         <Pagination.Item
           disabled={result?.last === undefined ? true : result?.last}
@@ -158,4 +158,4 @@ function mapStateToProps(state) {
     user: state.userData.user,
   };
 }
-export const MedicineConnectedList = connect(mapStateToProps, null)(MedicineList);
+export const TestConnectedList = connect(mapStateToProps, null)(TestsList);

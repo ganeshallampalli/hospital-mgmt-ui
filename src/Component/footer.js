@@ -14,7 +14,7 @@ export const FooterComponent = () => {
         className="text-center p-4"
         style={{ backgroundColor: "rgba(0, 0, 0, 0.05)" }}
       >
-        © Copyright-Med-Connect Team
+        © Copyright-Hospital Management - Team
       </div>
     </footer>
   );

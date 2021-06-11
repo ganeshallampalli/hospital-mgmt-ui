@@ -6,34 +6,34 @@ import { useHistory, useRouteMatch } from "react-router-dom";
 import * as Yup from "yup";
 const schema = Yup.object().shape({
   patientName: Yup.string().min(3).required("Required"),
-  medicineName: Yup.string().min(3).required("Required"),
+  testName: Yup.string().min(3).required("Required"),
   quantity: Yup.number().min(1).required("Required"),
   price: Yup.number().min(1).required("Required"),
 });
 
-export const Medicine = () => {
+export const Test = () => {
   const { params } = useRouteMatch();
-  const [medicine, setMedicine] = React.useState({
+  const [test, setTest] = React.useState({
     patientName: "",
-    medicineName: "",
+    testName: "",
     quantity: 1,
     price: 1
 
   });
   const history = useHistory();
   function navigate() {
-    history.push("/medicine-list");
+    history.push("/test-list");
   }
-  const saveMedicine = (values) => {
-    values.role = "ROLE_DOCTOR";
+  const saveTest = (values) => {
+    values.role = "ROLE_ADMIN";
     axios
-      .post("/api/v1/medicine", { ...values })
+      .post("/api/v1/test", { ...values })
       .then((response) => {
-        localStorage.setItem("medicine", JSON.stringify(response.data));
+        localStorage.setItem("test", JSON.stringify(response.data));
         navigate();
       })
       .catch((response) => {
-        alert("Medicine already exists.");
+        alert("Test already exists.");
         console.log(response);
       });
   };
@@ -41,9 +41,9 @@ export const Medicine = () => {
     const param = params;
     if (param.id) {
       axios
-        .get("/api/v1/medicine/" + param.id)
+        .get("/api/v1/test/" + param.id)
         .then((response) => {
-          setMedicine({ ...response.data });
+          setTest({ ...response.data });
         })
         .catch((response) => {
           console.log(response);
@@ -53,12 +53,12 @@ export const Medicine = () => {
   useEffect(() => {
     initialLoad(); // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  const initialValues = { ...medicine };
+  const initialValues = { ...test };
 
   return (
     <Formik
       validationSchema={schema}
-      onSubmit={saveMedicine}
+      onSubmit={saveTest}
       enableReinitialize
       initialValues={initialValues}
     >
@@ -79,48 +79,21 @@ export const Medicine = () => {
             }}
           >
             <Form.Row>
-              <h3>Add new Medicine</h3>
+              <h3>Add new Test</h3>
             </Form.Row>
             <Form.Row>
-              <Form.Group as={Col} xs="6" controlId="validationFormik01">
-                <Form.Label>Patient Name</Form.Label>
-                <Form.Control
-                  size="sm"
-                  type="text"
-                  name="patientName"
-                  value={values.patientName}
-                  onChange={handleChange}
-                  isValid={touched.patientName && !errors.patientName}
-                />
-                {errors.patientName}
-              </Form.Group>
 
               <Form.Group as={Col} xs="6" controlId="validationFormik02">
-                <Form.Label>Medicine Name</Form.Label>
+                <Form.Label>Test Name</Form.Label>
                 <Form.Control
                   size="sm"
                   type="text"
-                  name="medicineName"
-                  value={values.medicineName}
+                  name="testName"
+                  value={values.testName}
                   onChange={handleChange}
-                  isValid={touched.medicineName && !errors.medicineName}
+                  isValid={touched.testName && !errors.testName}
                 />
-
-                {errors.medicineName}
-              </Form.Group>
-            </Form.Row>
-            <Form.Row>
-              <Form.Group as={Col} xs="6" controlId="validationFormik07">
-                <Form.Label>Quantity</Form.Label>
-                <Form.Control
-                  size="sm"
-                  type="number"
-                  name="quantity"
-                  value={values.quantity}
-                  onChange={handleChange}
-                  isValid={touched.quantity && !errors.quantity}
-                />
-                {errors.quantity}
+                {errors.testName}
               </Form.Group>
               <Form.Group as={Col} xs="6" controlId="validationFormik07">
                 <Form.Label>Price</Form.Label>
@@ -135,8 +108,11 @@ export const Medicine = () => {
                 {errors.price}
               </Form.Group>
             </Form.Row>
+            <Form.Row>
 
-            <Button type="submit" style={{ marginBottom: "10px" }} size="sm">
+            </Form.Row>
+
+            <Button type="submit"  style={{ marginBottom: "10px" }} size="sm">
               Submit form
           </Button>
           </Form>
