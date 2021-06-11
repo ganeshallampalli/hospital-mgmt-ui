@@ -110,7 +110,7 @@ const NavbarComponent = (props) => {
   }
 
   return (
-    <Navbar expand="lg" bg="primary" variant="dark">
+    <Navbar expand="lg" bg="dark" variant="dark">
       <Navbar.Brand href="#/dashboard">Hospital Management</Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">

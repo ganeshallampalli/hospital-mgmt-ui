@@ -40,7 +40,7 @@ const LoginComponent = (props) => {
   localStorage.removeItem("user");
   return (
 
-      <Tabs defaultActiveKey="profile" style= {{color: 'black'}} id="uncontrolled-tab-example">
+      <Tabs defaultActiveKey="login" id="uncontrolled-tab-example">
         <Tab eventKey="login" title="Login">
           <Container>
             <Row>
@@ -140,7 +140,7 @@ const LoginComponent = (props) => {
             </Row>
           </Container>
         </Tab>
-        <Tab eventKey="register" style= {{color: 'black'}} title="Sign Up">
+        <Tab eventKey="register" title="Sign Up">
             {/*<Container>*/}
             {/*    <Row>*/}
             {/*        <Col xs={{span: 5}}>*/}
