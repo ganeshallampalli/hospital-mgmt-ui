@@ -102,10 +102,10 @@ const NavbarComponent = (props) => {
               </NavDropdown>
           )}
           {showPatient && (
-            <NavDropdown title="Patient" id="basic-nav-dropdown">
+            <NavDropdown title="Customer" id="basic-nav-dropdown">
               {showListPatient && (
-                <NavDropdown.Item href="#/patient-list">
-                  Patient List
+                <NavDropdown.Item href="#/customer-list">
+                  Customer List
                 </NavDropdown.Item>
               )}
             </NavDropdown>

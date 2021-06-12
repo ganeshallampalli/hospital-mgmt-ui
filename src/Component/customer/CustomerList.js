@@ -4,16 +4,16 @@ import { Button, Col, Form, Pagination, Table } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 
-const EquipmentList = (props) => {
+const CustomerList = (props) => {
   const [result, setResult] = React.useState({});
   const [pageNo, setPageNo] = React.useState(0);
   const history = useHistory();
   const firstNameRef = React.createRef();
   const emailIdRef = React.createRef();
 
-  const getEquipmentsList = (pageNo = 0) => {
+  const getCustomersList = (pageNo = 0) => {
     axios
-      .get("/api/v1/user/all/equipment", { params: { pageNo } })
+      .get("/api/v1/user/all/customer", { params: { pageNo } })
       .then((response) => {
         setPageNo(pageNo);
         setResult(response.data);
@@ -23,36 +23,36 @@ const EquipmentList = (props) => {
       });
   };
   useEffect(() => {
-    getEquipmentsList(); // eslint-disable-next-line react-hooks/exhaustive-deps
+    getCustomersList();
   }, []);
-  const deleteEquipment = (id) => {
+  const deleteCustomer = (id) => {
     axios
       .delete("/api/v1/user/" + id)
       .then((response) => {
-        getEquipmentsList();
+        getCustomersList();
       })
       .catch((reponse) => {
         console.log(reponse);
       });
   };
-  const newEquipment = () => {
-    history.push("/new-equipment");
+  const newCustomer = () => {
+    history.push("/new-customer");
   };
-  const editEquipment = (id) => {
-    history.push("/edit-equipment/" + id);
+  const editCustomer = (id) => {
+    history.push("/edit-customer/" + id);
   };
   const nextClick = (id) => {
-    getEquipmentsList(pageNo + 1);
+    getCustomersList(pageNo + 1);
   };
   const previousClick = (id) => {
-    getEquipmentsList(pageNo - 1);
+    getCustomersList(pageNo - 1);
   };
   const search = (id) => {
     const emailId = emailIdRef.current.value;
     const firstName = firstNameRef.current.value;
     axios
       .get("/api/v1/user/search", {
-        params: { role: "ROLE_ADMIN", emailId, firstName, pageNo },
+        params: { role: "ROLE_CUSTOMER", emailId, firstName, pageNo },
       })
       .then((response) => {
         setPageNo(0);
@@ -63,13 +63,16 @@ const EquipmentList = (props) => {
       });
   };
   let editAllowed = false;
-  if (props?.user?.role === "ROLE_ADMIN") {
+  if (
+    props?.user?.role === "ROLE_ADMIN" ||
+    props?.user?.role === "ROLE_RECEPTION"
+  ) {
     editAllowed = true;
   }
   return (
     <div>
       <Form.Row>
-        <h3>Equipment List</h3>
+        <h3>Customer List</h3>
       </Form.Row>
       <Form.Row>
         <Form.Group as={Col} xs="4" controlId="validationFormik01">
@@ -107,7 +110,7 @@ const EquipmentList = (props) => {
             <th>Username</th>
             <th>Email Id</th>
             <th>Mobile No</th>
-            <th>Specialization</th>
+            <th>Symptoms</th>
             <th>City</th>
             <th>Address</th>
             {editAllowed && <th></th>}
@@ -130,18 +133,18 @@ const EquipmentList = (props) => {
                 <td>{row.lastName}</td>
                 <td>{row.emailId}</td>
                 <td>{row.mobileNo}</td>
-                <td>{row.specialization}</td>
+                <td>{row.symptoms}</td>
                 <td>{row.city}</td>
                 <td>{row.address}</td>
                 {editAllowed && (
                   <td>
-                    <Button size="sm" onClick={() => editEquipment(row.id)}>
+                    <Button size="sm" onClick={() => editCustomer(row.id)}>
                       Edit
                     </Button>
                     <Button
                       size="sm"
                       className="ml-2"
-                      onClick={() => deleteEquipment(row.id)}
+                      onClick={() => deleteCustomer(row.id)}
                     >
                       Delete
                     </Button>
@@ -160,8 +163,8 @@ const EquipmentList = (props) => {
           Previous
         </Pagination.Item>
         {editAllowed && (
-          <Pagination.Item onClick={newEquipment}>New</Pagination.Item>
-        )}{" "}
+          <Pagination.Item onClick={newCustomer}>New</Pagination.Item>
+        )}
         <Pagination.Item
           disabled={result?.last === undefined ? true : result?.last}
           onClick={nextClick}
@@ -177,4 +180,4 @@ function mapStateToProps(state) {
     user: state.userData.user,
   };
 }
-export const EquipmentConnectedList = connect(mapStateToProps, null)(EquipmentList);
+export const CustomerConnectedList = connect(mapStateToProps, null)(CustomerList);

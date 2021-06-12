@@ -22,7 +22,7 @@ export const Equipment = () => {
     history.push("/equipment-list");
   }
   const saveEquipment = (values) => {
-    values.role = "ROLE_TECHNICIAN";
+    values.role = "ROLE_ADMIN";
     values.image = file;
     console.log('image', file);
     axios
