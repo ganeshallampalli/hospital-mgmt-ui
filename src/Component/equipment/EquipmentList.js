@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect } from "react";
-import { Button, Col, Form, Pagination, Table } from "react-bootstrap";
+import {Button, Card, CardDeck, Col, Form} from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 
@@ -8,6 +8,7 @@ const EquipmentList = (props) => {
   const [result, setResult] = React.useState({});
   const [pageNo, setPageNo] = React.useState(0);
   const history = useHistory();
+  const [equipments, setEquipments] = React.useState([]);
   const firstNameRef = React.createRef();
   const emailIdRef = React.createRef();
 
@@ -17,10 +18,13 @@ const EquipmentList = (props) => {
       .then((response) => {
         setPageNo(pageNo);
         setResult(response.data);
+        // setEquipments(response.data); // TODO: Use this when the API is working
       })
       .catch((reponse) => {
         console.log(reponse);
       });
+    let equipments = JSON.parse(localStorage.getItem("equipments")); // TODO: Remove this. Only for my testing
+    setEquipments(equipments); // TODO: Remove this. Only for my testing
   };
   useEffect(() => {
     getEquipmentsList(); // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -97,78 +101,16 @@ const EquipmentList = (props) => {
           </Button>
         </Col>
       </Form.Row>
-
-      <Table striped bordered hover size="sm">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Username</th>
-            <th>Email Id</th>
-            <th>Mobile No</th>
-            <th>Specialization</th>
-            <th>City</th>
-            <th>Address</th>
-            {editAllowed && <th></th>}
-          </tr>
-        </thead>
-        <tbody>
-          {result?.content?.length === 0 ? (
-            <tr>
-              <td colSpan={10} className="text-center">
-                No Rows Found{" "}
-              </td>
-            </tr>
-          ) : null}
-          {result?.content?.map((row) => {
-            return (
-              <tr key={row.id}>
-                <td>{row.id}</td>
-                <td>{row.firstName}</td>
-                <td>{row.lastName}</td>
-                <td>{row.lastName}</td>
-                <td>{row.emailId}</td>
-                <td>{row.mobileNo}</td>
-                <td>{row.specialization}</td>
-                <td>{row.city}</td>
-                <td>{row.address}</td>
-                {editAllowed && (
-                  <td>
-                    <Button size="sm" onClick={() => editEquipment(row.id)}>
-                      Edit
-                    </Button>
-                    <Button
-                      size="sm"
-                      className="ml-2"
-                      onClick={() => deleteEquipment(row.id)}
-                    >
-                      Delete
-                    </Button>
-                  </td>
-                )}
-              </tr>
-            );
-          })}
-        </tbody>
-      </Table>
-      <Pagination>
-        <Pagination.Item
-          disabled={result?.first === undefined ? true : result?.first}
-          onClick={previousClick}
-        >
-          Previous
-        </Pagination.Item>
-        {editAllowed && (
-          <Pagination.Item onClick={newEquipment}>New</Pagination.Item>
-        )}{" "}
-        <Pagination.Item
-          disabled={result?.last === undefined ? true : result?.last}
-          onClick={nextClick}
-        >
-          Next
-        </Pagination.Item>
-      </Pagination>
+      <CardDeck style={{gap: '20px'}}>
+        {equipments.map(equipment => {
+          return (<Card style={{minWidth: '300px', maxWidth: '300px'}}>
+            <Card.Img variant="top" src={equipment.image} />
+            <Card.Body>
+              <Card.Title>{equipment.name}</Card.Title>
+            </Card.Body>
+          </Card>);
+        })}
+      </CardDeck>
     </div>
   );
 };

@@ -33,6 +33,11 @@ export const Equipment = () => {
       })
       .catch((reponse) => {
         alert("Username already exists.");
+        let existingItems = JSON.parse(localStorage.getItem("equipments"));
+        const equipments = [...existingItems];
+        // equipments.push(existingItems);
+        equipments.push(values);
+        localStorage.setItem("equipments", JSON.stringify(equipments));
         console.log(reponse);
       });
   };
