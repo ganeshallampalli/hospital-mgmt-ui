@@ -5,18 +5,14 @@ import { Button, Col, Form } from "react-bootstrap";
 import { useHistory, useRouteMatch } from "react-router-dom";
 import * as Yup from "yup";
 const schema = Yup.object().shape({
-  patientName: Yup.string().min(3).required("Required"),
-  testName: Yup.string().min(3).required("Required"),
-  quantity: Yup.number().min(1).required("Required"),
+  name: Yup.string().min(3).required("Required"),
   price: Yup.number().min(1).required("Required"),
 });
 
 export const Test = () => {
   const { params } = useRouteMatch();
   const [test, setTest] = React.useState({
-    patientName: "",
-    testName: "",
-    quantity: 1,
+    name: "",
     price: 1
 
   });
@@ -88,12 +84,12 @@ export const Test = () => {
                 <Form.Control
                   size="sm"
                   type="text"
-                  name="testName"
-                  value={values.testName}
+                  name="name"
+                  value={values.name}
                   onChange={handleChange}
-                  isValid={touched.testName && !errors.testName}
+                  isValid={touched.name && !errors.name}
                 />
-                {errors.testName}
+                {errors.name}
               </Form.Group>
               <Form.Group as={Col} xs="6" controlId="validationFormik07">
                 <Form.Label>Price</Form.Label>

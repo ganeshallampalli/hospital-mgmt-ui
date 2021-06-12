@@ -14,99 +14,53 @@ const NavbarComponent = (props) => {
   };
   let showDoctor = false;
   let showTest = false;
-  let showReception = false;
   let showPatient = false;
   let showAppointment = false;
-  let showHelp = false;
   let showAddDoctor = false;
   let showAddTest = false;
-  let showAddReception = false;
   let showAddPatient = false;
   let showAddAppointment = false;
-  let showAddHelp = false;
   let showListDoctor = false;
   let showListTest = false;
-  let showListReception = false;
   let showListPatient = false;
   let showListAppointment = false;
-  let showListHelp = false;
 
   if (props?.user?.role === "ROLE_ADMIN") {
     showDoctor = true;
     showTest = true;
-    showReception = true;
     showPatient = true;
     showAppointment = true;
-    showHelp = true;
     showAddDoctor = true;
     showAddTest = true;
-    showAddReception = true;
-    showAddPatient = true;
-    showAddAppointment = true;
-    showAddHelp = false;
+    showAddAppointment = false;
     showListDoctor = true;
     showListTest = true;
-    showListReception = true;
     showListPatient = true;
     showListAppointment = true;
-    showListHelp = true;
-  } else if (props?.user?.role === "ROLE_DOCTOR") {
+  } else if (props?.user?.role === "ROLE_TECHNICIAN") {
     showDoctor = false;
     showTest = true;
-    showReception = false;
     showPatient = true;
     showAppointment = true;
-    showHelp = true;
     showAddDoctor = false;
     showAddTest = true;
-    showAddReception = false;
-    showAddPatient = false;
     showAddAppointment = false;
-    showAddHelp = true;
     showListDoctor = false;
     showListTest = true;
-    showListReception = false;
     showListPatient = true;
     showListAppointment = true;
-    showListHelp = false;
-  } else if (props?.user?.role === "ROLE_PATIENT") {
+  } else if (props?.user?.role === "ROLE_CUSTOMER") {
     showDoctor = false;
     showTest = true;
-    showReception = false;
     showPatient = false;
     showAppointment = true;
-    showHelp = true;
     showAddDoctor = false;
     showAddTest = false;
-    showAddReception = false;
-    showAddPatient = false;
-    showAddAppointment = false;
-    showAddHelp = true;
+    showAddAppointment = true;
     showListDoctor = false;
     showListTest = true;
-    showListReception = false;
     showListPatient = false;
     showListAppointment = true;
-    showListHelp = false;
-  } else if (props?.user?.role === "ROLE_RECEPTION") {
-    showDoctor = true;
-    showTest = true;
-    showReception = false;
-    showPatient = true;
-    showAppointment = true;
-    showHelp = true;
-    showAddDoctor = false;
-    showAddTest = true;
-    showAddReception = false;
-    showAddPatient = true;
-    showAddAppointment = true;
-    showAddHelp = true
-    showListDoctor = true;
-    showListTest = true;
-    showListReception = false;
-    showListPatient = true;
-    showListAppointment = true;
-    showListHelp = false;
   }
 
   return (
@@ -148,27 +102,8 @@ const NavbarComponent = (props) => {
                 )}
               </NavDropdown>
           )}
-          {showReception && (
-            <NavDropdown title="Receptionist" id="basic-nav-dropdown" >
-              {showAddReception && (
-                <NavDropdown.Item href="#/new-reception">
-                  Add Receptionist
-                </NavDropdown.Item>
-              )}
-              {showListReception && (
-                <NavDropdown.Item href="#/reception-list">
-                  Receptionist List
-                </NavDropdown.Item>
-              )}
-            </NavDropdown>
-          )}
           {showPatient && (
             <NavDropdown title="Patient" id="basic-nav-dropdown">
-              {showAddPatient && (
-                <NavDropdown.Item href="#/new-patient">
-                  Add Patient
-                </NavDropdown.Item>
-              )}
               {showListPatient && (
                 <NavDropdown.Item href="#/patient-list">
                   Patient List
@@ -189,20 +124,6 @@ const NavbarComponent = (props) => {
                 </NavDropdown.Item>
               )}
             </NavDropdown>
-          )}
-          {showHelp && (
-              <NavDropdown title="Help" id="basic-nav-dropdown">
-                {showAddHelp && (
-                    <NavDropdown.Item href="#/new-help">
-                      Add Help
-                    </NavDropdown.Item>
-                )}
-                {showListHelp && (
-                    <NavDropdown.Item href="#/help-list">
-                      Help List
-                    </NavDropdown.Item>
-                )}
-              </NavDropdown>
           )}
           <NavDropdown title="Profile" id="basic-nav-dropdown" drop={'left'}>
             <NavDropdown.Item href={"#/my-profile/" + props.user?.id}>

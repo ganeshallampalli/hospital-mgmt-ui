@@ -20,13 +20,13 @@ const DashboardComponent = (props) => {
     }
   }
   let welcomeMessage = "Welcome : ";
-  welcomeMessage += props.user?.firstName;
+  welcomeMessage += props.user?.name;
   switch (props.user?.role) {
     case "ROLE_ADMIN":
       welcomeMessage += " (ADMIN)";
       break;
-    case "ROLE_DOCTOR":
-      welcomeMessage += " (DOCTOR)";
+    case "ROLE_TECHNICIAN":
+      welcomeMessage += " (TECHNICIAN)";
       break;
     case "ROLE_RECEPTION":
       welcomeMessage += " (RECEPTIONIST)";

@@ -5,23 +5,19 @@ import { Button, Col, Form } from "react-bootstrap";
 import { useRouteMatch } from "react-router-dom";
 import * as Yup from "yup";
 const schema = Yup.object().shape({
-    firstName: Yup.string().min(3).required("Required"),
-    lastName: Yup.string().min(3).required("Required"),
+    name: Yup.string().min(3).required("Required"),
     username: Yup.string().min(3).required("Required"),
-    mobileNo: Yup.number().min(3).required("Required"),
-    dob: Yup.date().min(3).required("Required"),
-    gender: Yup.string().min(3).required("Required"),
+    email: Yup.string().min(3).required("Required"),
+    mobileNo: Yup.number().min(10).required("Required"),
 });
 
 export const MyProfile = () => {
     const { params } = useRouteMatch();
     const [myProfile, setMyProfile] = React.useState({
-        firstName: "",
-        lastName: "",
+        name: "",
         username: "",
+        email: "",
         mobileNo: undefined,
-        dob: "",
-        gender: "Male",
     });
     // function navigate() {
     //     history.push("/Daa");
@@ -33,9 +29,9 @@ export const MyProfile = () => {
                 localStorage.setItem("user", JSON.stringify(response.data));
                 alert("Profile Saved!");
             })
-            .catch((reponse) => {
+            .catch((response) => {
                 alert("Error Saving Profile.Username may already Exist");
-                console.log(reponse);
+                console.log(response);
             });
     };
     const initialLoad = () => {
@@ -89,29 +85,29 @@ export const MyProfile = () => {
                         </Form.Row>
                         <Form.Row>
                             <Form.Group as={Col} xs="6" controlId="validationFormik01">
-                                <Form.Label>First name</Form.Label>
+                                <Form.Label>Name</Form.Label>
                                 <Form.Control
                                     size="sm"
                                     type="text"
-                                    name="firstName"
-                                    value={values.firstName}
+                                    name="name"
+                                    value={values.name}
                                     onChange={handleChange}
-                                    isValid={touched.firstName && !errors.firstName}
+                                    isValid={touched.name && !errors.name}
                                 />
-                                {errors.firstName}
+                                {errors.name}
                             </Form.Group>
 
                             <Form.Group as={Col} xs="6" controlId="validationFormik02">
-                                <Form.Label>Last name</Form.Label>
+                                <Form.Label>Email</Form.Label>
                                 <Form.Control
                                     size="sm"
                                     type="text"
-                                    name="lastName"
-                                    value={values.lastName}
+                                    name="email"
+                                    value={values.email}
                                     onChange={handleChange}
-                                    isValid={touched.lastName && !errors.lastName}
+                                    isValid={touched.email && !errors.email}
                                 />
-                                {errors.lastName}
+                                {errors.email}
                             </Form.Group>
                         </Form.Row>
                         <Form.Row>
@@ -139,35 +135,6 @@ export const MyProfile = () => {
                                 />
 
                                 {errors.mobileNo}
-                            </Form.Group>
-                        </Form.Row>
-                        <Form.Row>
-                            <Form.Group as={Col} xs="6" controlId="validationFormik05">
-                                <Form.Label>Gender</Form.Label>
-                                <Form.Control
-                                    size="sm"
-                                    as="select"
-                                    name="gender"
-                                    value={values.gender}
-                                    onChange={handleChange}
-                                    isValid={touched.gender && !errors.gender}
-                                >
-                                    <option value="Male">Male</option>
-                                    <option value="Female">Female</option>
-                                </Form.Control>
-                                {errors.gender}
-                            </Form.Group>
-                            <Form.Group as={Col} xs="6" controlId="validationFormik06">
-                                <Form.Label>Date Of Birth</Form.Label>
-                                <Form.Control
-                                    size="sm"
-                                    type="date"
-                                    name="dob"
-                                    value={values.dob}
-                                    onChange={handleChange}
-                                    isValid={touched.dob && !errors.dob}
-                                />
-                                {errors.dob}
                             </Form.Group>
                         </Form.Row>
                         <Button type="submit" style={{ marginBottom: "10px" }} size="sm">

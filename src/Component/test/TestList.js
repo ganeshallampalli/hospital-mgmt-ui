@@ -8,7 +8,7 @@ const TestsList = (props) => {
   const [result, setResult] = React.useState({});
   const [pageNo, setPageNo] = React.useState(0);
   const history = useHistory();
-  const testNameRef = React.createRef();
+  const nameRef = React.createRef();
 
   const getTestsList = (pageNo = 0) => {
     axios
@@ -47,7 +47,7 @@ const TestsList = (props) => {
     getTestsList(pageNo - 1);
   };
   const search = (id) => {
-    const testName = testNameRef.current.value;
+    const testName = nameRef.current.value;
     axios
       .get("/api/v1/test/search", {
         params: { role: "ROLE_TECHNICIAN", testName, pageNo },
@@ -76,7 +76,7 @@ const TestsList = (props) => {
             type="text"
             name="testName"
             size="sm"
-            ref={testNameRef}
+            ref={nameRef}
           />
         </Form.Group>
 
@@ -93,8 +93,6 @@ const TestsList = (props) => {
             <th>#</th>
             <th>Patient Name</th>
             <th>Test Name</th>
-            <th>Quantity</th>
-            <th>Price</th>
             {editAllowed && <th></th>}
           </tr>
         </thead>
@@ -110,9 +108,7 @@ const TestsList = (props) => {
             return (
               <tr key={row.id}>
                 <td>{row.id}</td>
-                <td>{row.patientName}</td>
-                <td>{row.testName}</td>
-                <td>{row.quantity}</td>
+                <td>{row.name}</td>
                 <td>{row.price}</td>
                 {editAllowed && (
                   <td>
