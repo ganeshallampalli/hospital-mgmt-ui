@@ -12,52 +12,51 @@ const NavbarComponent = (props) => {
     props.actions.unsetUser({ user: {} });
     history.push("/login");
   };
-  let showDoctor = false;
+  let showEquipment = false;
   let showTest = false;
   let showPatient = false;
   let showAppointment = false;
-  let showAddDoctor = false;
+  let showAddEquipment = false;
   let showAddTest = false;
-  let showAddPatient = false;
   let showAddAppointment = false;
-  let showListDoctor = false;
+  let showListEquipment = false;
   let showListTest = false;
   let showListPatient = false;
   let showListAppointment = false;
 
   if (props?.user?.role === "ROLE_ADMIN") {
-    showDoctor = true;
+    showEquipment = true;
     showTest = true;
     showPatient = true;
     showAppointment = true;
-    showAddDoctor = true;
+    showAddEquipment = true;
     showAddTest = true;
     showAddAppointment = false;
-    showListDoctor = true;
+    showListEquipment = true;
     showListTest = true;
     showListPatient = true;
     showListAppointment = true;
   } else if (props?.user?.role === "ROLE_TECHNICIAN") {
-    showDoctor = false;
+    showEquipment = false;
     showTest = true;
     showPatient = true;
     showAppointment = true;
-    showAddDoctor = false;
+    showAddEquipment = false;
     showAddTest = true;
     showAddAppointment = false;
-    showListDoctor = false;
+    showListEquipment = false;
     showListTest = true;
     showListPatient = true;
     showListAppointment = true;
   } else if (props?.user?.role === "ROLE_CUSTOMER") {
-    showDoctor = false;
+    showEquipment = false;
     showTest = true;
     showPatient = false;
     showAppointment = true;
-    showAddDoctor = false;
+    showAddEquipment = false;
     showAddTest = false;
     showAddAppointment = true;
-    showListDoctor = false;
+    showListEquipment = false;
     showListTest = true;
     showListPatient = false;
     showListAppointment = true;
@@ -74,14 +73,14 @@ const NavbarComponent = (props) => {
       </Navbar.Collapse>
       {props.user && (
         <Navbar.Collapse className="justify-content-end">
-          {showDoctor && (
+          {showEquipment && (
             <NavDropdown title="Equipment" id="basic-nav-dropdown">
-              {showAddDoctor && (
+              {showAddEquipment && (
                 <NavDropdown.Item href="#/new-equipment">
                   Add Equipment
                 </NavDropdown.Item>
               )}
-              {showListDoctor && (
+              {showListEquipment && (
                 <NavDropdown.Item href="#/equipment-list">
                   Equipment List
                 </NavDropdown.Item>
