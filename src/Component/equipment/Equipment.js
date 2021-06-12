@@ -6,14 +6,14 @@ import { useHistory, useRouteMatch } from "react-router-dom";
 
 import * as Yup from "yup";
 const schema = Yup.object().shape({
-  equipmentName: Yup.string().min(3).required("Required"),
+  name: Yup.string().min(3).required("Required"),
   image: Yup.string().required("Required")
 });
 
 export const Equipment = () => {
   const { params } = useRouteMatch();
   const [equipment, setEquipment] = React.useState({
-    equipmentName: "",
+    name: "",
     image: ""
   });
   const [file, setFile] = React.useState();
@@ -116,12 +116,12 @@ export const Equipment = () => {
                 <Form.Control
                   size="sm"
                   type="text"
-                  name="equipmentName"
-                  value={values.equipmentName}
+                  name="name"
+                  value={values.name}
                   onChange={handleChange}
-                  isValid={touched.equipmentName && !errors.equipmentName}
+                  isValid={touched.name && !errors.name}
                 />
-                {errors.equipmentName}
+                {errors.name}
               </Form.Group>
             </Form.Row>
             <Form.Row>
