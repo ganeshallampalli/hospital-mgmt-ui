@@ -121,15 +121,15 @@ const NavbarComponent = (props) => {
       {props.user && (
         <Navbar.Collapse className="justify-content-end">
           {showDoctor && (
-            <NavDropdown title="Doctor" id="basic-nav-dropdown">
+            <NavDropdown title="Equipment" id="basic-nav-dropdown">
               {showAddDoctor && (
-                <NavDropdown.Item href="#/new-doctor">
-                  Add Doctor
+                <NavDropdown.Item href="#/new-equipment">
+                  Add Equipment
                 </NavDropdown.Item>
               )}
               {showListDoctor && (
-                <NavDropdown.Item href="#/doctor-list">
-                  Doctor List
+                <NavDropdown.Item href="#/equipment-list">
+                  Equipment List
                 </NavDropdown.Item>
               )}
             </NavDropdown>
