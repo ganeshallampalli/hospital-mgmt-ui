@@ -2,8 +2,8 @@ import { Patient } from "../patient/Patient";
 import { PatientConnectedList } from "../patient/PatientList";
 import React from "react";
 import { LoginConnectedComponent } from "../LoginComponent";
-import { DoctorConnectedList } from "../doctor/DoctorList";
-import { Doctor } from "../doctor/Doctor";
+import { DoctorConnectedList } from "../equipment/EquipmentList";
+import { Equipment } from "../equipment/Equipment";
 import { ReceptionConnectedList } from "../reception/ReceptionList";
 import { Reception } from "../reception/Reception";
 import { DashboardConnectedComponent } from "../DashboardComponent";
@@ -31,15 +31,15 @@ export const dashboardRoutes = [
   },
 
   {
-    path: "/edit-doctor/:id",
-    component: <Doctor></Doctor>,
+    path: "/edit-equipment/:id",
+    component: <Equipment></Equipment>,
   },
   {
-    path: "/new-doctor",
-    component: <Doctor></Doctor>,
+    path: "/new-equipment",
+    component: <Equipment></Equipment>,
   },
   {
-    path: "/doctor-list",
+    path: "/equipment-list",
     component: <DoctorConnectedList></DoctorConnectedList>,
   },
   {
