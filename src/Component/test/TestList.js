@@ -61,30 +61,13 @@ const TestsList = (props) => {
       });
   };
   let editAllowed = false;
-  if ((props?.user?.role === "ROLE_ADMIN") || (props?.user?.role === "ROLE_TECHNICIAN")) {
+  if (props?.user?.role === "ROLE_TECHNICIAN") {
     editAllowed = true;
   }
   return (
     <div>
       <Form.Row>
         <h3>Tests</h3>
-      </Form.Row>
-      <Form.Row>
-        <Form.Group as={Col} xs="4" controlId="validationFormik01">
-          <Form.Label>Test name</Form.Label>
-          <Form.Control
-            type="text"
-            name="testName"
-            size="sm"
-            ref={nameRef}
-          />
-        </Form.Group>
-
-        <Col>
-          <Button style={{ marginTop: "32px" }} size="sm" onClick={search}>
-            Search
-          </Button>
-        </Col>
       </Form.Row>
 
       <Table striped bordered hover size="sm">
