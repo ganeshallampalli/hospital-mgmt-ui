@@ -42,8 +42,8 @@ export const MyProfile = () => {
                 .then((response) => {
                     setMyProfile({ ...response.data });
                 })
-                .catch((reponse) => {
-                    console.log(reponse);
+                .catch((response) => {
+                    console.log(response);
                 });
         }
     };

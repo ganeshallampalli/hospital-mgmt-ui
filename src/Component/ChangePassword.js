@@ -2,7 +2,7 @@ import axios from "axios";
 import { Formik } from "formik";
 import React, { useEffect } from "react";
 import { Button, Col, Form } from "react-bootstrap";
-import { useRouteMatch } from "react-router-dom";
+import {useHistory, useRouteMatch} from "react-router-dom";
 import * as Yup from "yup";
 const schema = Yup.object().shape({
     newPassword: Yup.string().min(3).required("Required"),
@@ -12,11 +12,16 @@ const schema = Yup.object().shape({
 
 export const ChangePassword = () => {
     const { params } = useRouteMatch();
+    const history = useHistory();
     const [myProfile, setMyProfile] = React.useState({
         newPassword: "",
         confirmPassword: "",
         currentPassword: "",
     });
+
+    function navigate() {
+        history.push("/dashboard");
+    }
     const changePassword = (values) => {
         if (values.newPassword !== values.confirmPassword) {
             alert("New password and Confirm Password dont match")
@@ -26,10 +31,11 @@ export const ChangePassword = () => {
                 currentPassword: values.currentPassword,
                 newPassword: values.newPassword
             }).then((response) => {
-                alert(response.data);
-            }).catch((reponse) => {
+               // alert(response.data);
+                navigate();
+            }).catch((response) => {
                 alert("Error Changing password");
-                console.log(reponse);
+                console.log(response);
             });
         }
 
