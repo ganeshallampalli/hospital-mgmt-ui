@@ -356,13 +356,18 @@ const LoginComponent = (props) => {
                                                             <Form.Control
                                                                 autoComplete="off"
                                                                 type="text"
+                                                                as="select"
+                                                                custom
                                                                 placeholder="Technician/Customer"
                                                                 aria-describedby="inputGroupPrepend"
                                                                 name="role"
                                                                 value={values.role}
                                                                 onChange={handleChange}
                                                                 isInvalid={!!errors.role}
-                                                            />
+                                                            >
+                                                                <option value="ROLE_TECHNICIAN">TECHNICIAN</option>
+                                                                <option value="ROLE_CUSTOMER">CUSTOMER</option>
+                                                            </Form.Control>
                                                             <Form.Control.Feedback type="invalid">
                                                                 {errors.role}
                                                             </Form.Control.Feedback>
