@@ -6,7 +6,7 @@ import { useRouteMatch } from "react-router-dom";
 import * as Yup from "yup";
 const schema = Yup.object().shape({
     name: Yup.string().min(3).required("Required"),
-    username: Yup.string().min(3).required("Required"),
+    // username: Yup.string().min(3).required("Required"),
     email: Yup.string().min(3).required("Required"),
     mobileNo: Yup.number().min(10).required("Required"),
 });

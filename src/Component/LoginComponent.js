@@ -23,10 +23,9 @@ const SignUpSchema = Yup.object().shape({
     name: Yup.string().required("Required"),
     email: Yup.string().email("Invalid Email Id").required("Required"),
     address: Yup.string().required("Required"),
-    mobile: Yup.string().required("Required"),
+    mobileNo: Yup.string(),
+        // .min(10).max(10).required("Mobile number should be of 10 digits"),
     role: Yup.string().required("Required"),
-    // startTime: Yup.string().required("Required"),
-    // endTime: Yup.string().required("Required"),
 });
 
 const LoginComponent = (props) => {
@@ -49,9 +48,9 @@ const LoginComponent = (props) => {
                 });
                 navigateToDashboard();
             })
-            .catch((reponse) => {
+            .catch((response) => {
                 alert("Not Able to login. Please check your username and password");
-                console.log(reponse);
+                console.log(response);
             });
     };
     localStorage.removeItem("user");
@@ -188,10 +187,8 @@ const LoginComponent = (props) => {
                                             email: "",
                                             password: "",
                                             address: "",
-                                            mobile: "",
+                                            mobileNo: "",
                                             role: "",
-                                            startTime: "",
-                                            endTime: ""
                                         }}
                                     >
                                         {({
@@ -333,13 +330,13 @@ const LoginComponent = (props) => {
                                                                 type="text"
                                                                 placeholder="9999999999"
                                                                 aria-describedby="inputGroupPrepend"
-                                                                name="mobile"
-                                                                value={values.mobile}
+                                                                name="mobileNo"
+                                                                value={values.mobileNo}
                                                                 onChange={handleChange}
-                                                                isInvalid={!!errors.mobile}
+                                                                isInvalid={!!errors.mobileNo}
                                                             />
                                                             <Form.Control.Feedback type="invalid">
-                                                                {errors.mobile}
+                                                                {errors.mobileNo}
                                                             </Form.Control.Feedback>
                                                         </InputGroup>
                                                     </Form.Group>
