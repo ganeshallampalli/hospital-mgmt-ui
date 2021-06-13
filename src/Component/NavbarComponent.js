@@ -22,6 +22,7 @@ const NavbarComponent = (props) => {
   let showListEquipment = false;
   let showListTest = false;
   let showListPatient = false;
+  let showListTechnician = false;
   let showListAppointment = false;
 
   if (props?.user?.role === "ROLE_ADMIN") {
@@ -30,11 +31,12 @@ const NavbarComponent = (props) => {
     showPatient = true;
     showAppointment = true;
     showAddEquipment = true;
-    showAddTest = true;
+    showAddTest = false;
     showAddAppointment = false;
     showListEquipment = true;
     showListTest = true;
     showListPatient = true;
+    showListTechnician = true;
     showListAppointment = true;
   } else if (props?.user?.role === "ROLE_TECHNICIAN") {
     showEquipment = false;
@@ -102,11 +104,16 @@ const NavbarComponent = (props) => {
               </NavDropdown>
           )}
           {showPatient && (
-            <NavDropdown title="Customer" id="basic-nav-dropdown">
+            <NavDropdown title="Manage" id="basic-nav-dropdown">
               {showListPatient && (
                 <NavDropdown.Item href="#/customer-list">
                   Customer List
                 </NavDropdown.Item>
+              )}
+              {showListTechnician && (
+                  <NavDropdown.Item href="#/technician-list">
+                    Technician List
+                  </NavDropdown.Item>
               )}
             </NavDropdown>
           )}
@@ -114,7 +121,7 @@ const NavbarComponent = (props) => {
             <NavDropdown title="Appointment" id="basic-nav-dropdown">
               {showAddAppointment && (
                 <NavDropdown.Item href="#/new-appointment">
-                  Add Appointment
+                  Book an Appointment
                 </NavDropdown.Item>
               )}
               {showListAppointment && (
