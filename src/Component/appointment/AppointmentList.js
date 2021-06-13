@@ -1,23 +1,23 @@
 import axios from "axios";
 import React, {useEffect} from "react";
-import {Button, Col, Form, Pagination, Table} from "react-bootstrap";
+import {Button, Col, Form, Table} from "react-bootstrap";
 import {useHistory} from "react-router-dom";
 import {connect} from "react-redux";
 
 const AppointmentList = (props) => {
-    const [result, setResult] = React.useState({});
-    const [pageNo, setPageNo] = React.useState(0);
+    const [result, setResult] = React.useState([]);
     const [email, setEmail] = React.useState("");
     const history = useHistory();
     const dateRef = React.createRef();
     const testNameRef = React.createRef();
 
     const getUser = () => {
-        setEmail(JSON.parse(localStorage.getItem("user")).email);
+        //setEmail(JSON.parse(localStorage.getItem("user")).email);
+        setEmail(props?.user?.role);
         getAppointmentsList(); // eslint-disable-next-line react-hooks/exhaustive-deps
     };
 
-    const getAppointmentsList = (pageNo = 0) => {
+    const getAppointmentsList = () => {
         axios
             .get("/api/v1/booking/all", {params: {email}})
             .then((response) => {
@@ -37,21 +37,28 @@ const AppointmentList = (props) => {
     const editAppointment = (id) => {
         history.push("/edit-appointment/" + id);
     };
-    const nextClick = (id) => {
-        getAppointmentsList(pageNo + 1);
-    };
-    const previousClick = (id) => {
-        getAppointmentsList(pageNo - 1);
-    };
-    const search = (id) => {
-        const testName = testNameRef.current.value;
+
+    const searchDate = (id) => {
         const date = dateRef.current.value;
         axios
-            .get("/api/v1/appointment/search", {
-                params: {testName, date, pageNo},
+            .get("/api/v1/booking/search/date", {
+                params: {date},
             })
             .then((response) => {
-                setPageNo(0);
+                setResult(response.data);
+            })
+            .catch((response) => {
+                console.log(response);
+            });
+    };
+
+    const searchTest = (id) => {
+        const testName = testNameRef.current.value;
+        axios
+            .get("/api/v1/booking/search/test", {
+                params: {testName},
+            })
+            .then((response) => {
                 setResult(response.data);
             })
             .catch((response) => {
@@ -79,6 +86,11 @@ const AppointmentList = (props) => {
                             ref={dateRef}
                         />
                     </Form.Group>
+                    <Col>
+                        <Button style={{marginTop: "32px"}} size="sm" onClick={searchDate}>
+                            Search
+                        </Button>
+                    </Col>
 
                     <Form.Group as={Col} xs="4" controlId="validationFormik02">
                         <Form.Label>Test Name</Form.Label>
@@ -90,7 +102,7 @@ const AppointmentList = (props) => {
                         />
                     </Form.Group>
                     <Col>
-                        <Button style={{marginTop: "32px"}} size="sm" onClick={search}>
+                        <Button style={{marginTop: "32px"}} size="sm" onClick={searchTest}>
                             Search
                         </Button>
                     </Col>
@@ -113,14 +125,14 @@ const AppointmentList = (props) => {
                 </tr>
                 </thead>
                 <tbody>
-                {result?.content?.length === 0 ? (
+                {result.length == 0 ? (
                     <tr>
                         <td colSpan={10} className="text-center">
                             No Rows Found{" "}
                         </td>
                     </tr>
                 ) : null}
-                {result?.content?.map((row) => {
+                {result.map((row) => {
                     return (
                         <tr key={row.bookingId}>
                             <td>{row.bookingId}</td>
@@ -128,7 +140,7 @@ const AppointmentList = (props) => {
                             <td>{row.technicianName}</td>
                             <td>{row.type}</td>
                             <td>{row.appointmentDate?.substring(0, 10)}</td>
-                            <td>{row.time}</td>
+                            <td>{row.appointmentTime?.substring(0, 5)}</td>
                             <td>{row.mobileNo}</td>
                             <td>{row.address}</td>
                         </tr>
@@ -136,20 +148,6 @@ const AppointmentList = (props) => {
                 })}
                 </tbody>
             </Table>
-            <Pagination>
-                <Pagination.Item
-                    disabled={result?.first === undefined ? true : result?.first}
-                    onClick={previousClick}
-                >
-                    Previous
-                </Pagination.Item>
-                <Pagination.Item
-                    disabled={result?.last === undefined ? true : result?.last}
-                    onClick={nextClick}
-                >
-                    Next
-                </Pagination.Item>
-            </Pagination>
         </div>
     );
 };

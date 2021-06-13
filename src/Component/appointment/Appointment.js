@@ -6,13 +6,14 @@ import {useHistory, useRouteMatch} from "react-router-dom";
 import * as Yup from "yup";
 
 const schema = Yup.object().shape({
+  bookingId: Yup.string(),
   customerName: Yup.string().min(3).required("Required"),
   technicianName: Yup.string().min(3),
   address: Yup.string().min(3).required("Required"),
   mobileNo: Yup.number().min(3).required("Required"),
   type: Yup.string().min(3).required("Required"),
-  appointmentDate: Yup.date().required("Required"),
-  time: Yup.string().test("not empty", "Required", function (value) {
+  appointmentDate: Yup.date(),
+  appointmentTime: Yup.string().test("not empty", "Required", function (value) {
     return !!value;
   }),
 });
@@ -27,7 +28,7 @@ export const Appointment = () => {
     mobileNo: undefined,
     type: "",
     appointmentDate: "",
-    time: "",
+    appointmentTime: "",
   });
   const history = useHistory();
   function navigate() {
@@ -168,31 +169,18 @@ export const Appointment = () => {
               </Form.Group>
             </Form.Row>
             <Form.Row>
-              <Form.Group as={Col} xs="6" controlId="validationFormik05">
-                <Form.Label>Appointment Date</Form.Label>
-                <Form.Control
-                  size="sm"
-                  type="date"
-                  name="appointmentDate"
-                  value={values.appointmentDate}
-                  onChange={handleChange}
-                  isValid={touched.appointmentDate && !errors.appointmentDate}
-                />
-
-                {errors.appointmentDate}
-              </Form.Group>
               <Form.Group as={Col} xs="6" controlId="validationFormik06">
                 <Form.Label>Appointment Time</Form.Label>
                 <Form.Control
                   size="sm"
-                  type="time"
-                  name="time"
-                  value={values.time}
+                  type="datetime-local"
+                  name="appointmentTime"
+                  value={values.appointmentTime}
                   onChange={handleChange}
-                  isValid={touched.time && !errors.time}
+                  isValid={touched.appointmentTime && !errors.appointmentTime}
                 />
 
-                {errors.time}
+                {errors.appointmentTime}
               </Form.Group>
             </Form.Row>
             <Form.Row>
