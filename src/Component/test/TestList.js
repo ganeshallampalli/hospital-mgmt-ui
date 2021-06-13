@@ -91,9 +91,8 @@ const TestsList = (props) => {
         <thead>
           <tr>
             <th>#</th>
-            <th>Patient Name</th>
             <th>Test Name</th>
-            {editAllowed && <th></th>}
+            <th>Price</th>
           </tr>
         </thead>
         <tbody>
@@ -110,20 +109,6 @@ const TestsList = (props) => {
                 <td>{row.id}</td>
                 <td>{row.name}</td>
                 <td>{row.price}</td>
-                {editAllowed && (
-                  <td>
-                    <Button size="sm" onClick={() => editTest(row.id)}>
-                      Edit
-                    </Button>
-                    <Button
-                      size="sm"
-                      className="ml-2"
-                      onClick={() => deleteTest(row.id)}
-                    >
-                      Delete
-                    </Button>
-                  </td>
-                )}
               </tr>
             );
           })}
