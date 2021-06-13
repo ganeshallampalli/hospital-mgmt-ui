@@ -11,6 +11,7 @@ import {ChangePassword} from "../ChangePassword";
 import {TestConnectedList} from "../test/TestList";
 import {Test} from "../test/Test";
 import {CustomerConnectedList} from "../customer/CustomerList";
+import {TechnicianConnectedList} from "../customer/TechnicianList";
 
 export const dashboardRoutes = [
     {
@@ -24,6 +25,10 @@ export const dashboardRoutes = [
     {
         path: "/customer-list",
         component: <CustomerConnectedList></CustomerConnectedList>,
+    },
+    {
+        path: "/technician-list",
+        component: <TechnicianConnectedList></TechnicianConnectedList>,
     },
 
     {
