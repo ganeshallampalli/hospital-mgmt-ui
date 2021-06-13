@@ -28,11 +28,8 @@ const DashboardComponent = (props) => {
     case "ROLE_TECHNICIAN":
       welcomeMessage += " (TECHNICIAN)";
       break;
-    case "ROLE_RECEPTION":
-      welcomeMessage += " (RECEPTIONIST)";
-      break;
-    case "ROLE_PATIENT":
-      welcomeMessage += " (PATIENT)";
+    case "ROLE_CUSTOMER":
+      welcomeMessage += " (CUSTOMER)";
       break;
     default:
   }
