@@ -1,11 +1,13 @@
 import axios from "axios";
 import {Formik} from "formik";
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {Button, Card, Col, Container, Form, InputGroup, Row, Tab, Tabs,} from "react-bootstrap";
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 import * as Yup from "yup";
 import {SET_USER_DATA} from "./redux/actionTypes";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const SignInSchema = Yup.object().shape({
     email: Yup.string().email("Invalid Email ID").required("Required"),
@@ -29,6 +31,8 @@ const SignUpSchema = Yup.object().shape({
 });
 
 const LoginComponent = (props) => {
+
+    const [dateTime, setDateTime] = useState(new Date());
     function navigateToDashboard() {
         window.location.href = "/#/dashboard";
     }
@@ -156,6 +160,18 @@ const LoginComponent = (props) => {
                                                                 {errors.password}
                                                             </Form.Control.Feedback>
                                                         </InputGroup>
+                                                    </Form.Group>
+                                                    <Form.Group as={Col} xs="6" controlId="validationFormik06">
+                                                        <Form.Label>Appointment Time</Form.Label>
+                                                        <DatePicker
+                                                            selected={dateTime}
+                                                            onChange={(date) => setDateTime(date)}
+                                                            showTimeSelect
+                                                            timeFormat="HH:mm"
+                                                            timeIntervals={30}
+                                                            timeCaption="time"
+                                                            dateFormat="MMMM d, yyyy hh:mm aa"
+                                                        />
                                                     </Form.Group>
                                                 </Form.Row>
                                                 <Row>
