@@ -5,12 +5,11 @@ import { Button, Col, Form } from "react-bootstrap";
 import { useHistory, useRouteMatch } from "react-router-dom";
 import * as Yup from "yup";
 const schema = Yup.object().shape({
-  firstName: Yup.string().min(3).required("Required"),
-  lastName: Yup.string().min(3).required("Required"),
-  doctorName: Yup.string().min(3).required("Required"),
-  mobileNo: Yup.number().min(3).required("Required"),
+  customerName: Yup.string().min(3).required("Required"),
+  technicianName: Yup.string().min(3),
   address: Yup.string().min(3).required("Required"),
-  disease: Yup.string().min(3).required("Required"),
+  mobileNo: Yup.number().min(3).required("Required"),
+  type: Yup.string().min(3).required("Required"),
   appointmentDate: Yup.date().required("Required"),
   time: Yup.string().test("not empty", "Required", function (value) {
     return !!value;
@@ -20,14 +19,13 @@ const schema = Yup.object().shape({
 export const Appointment = () => {
   const { params } = useRouteMatch();
   const [appointment, setAppointment] = React.useState({
-    firstName: "",
-    lastName: "",
-    doctorName: "",
+    customerName: "",
+    technicianName: "",
+    address: "",
     mobileNo: undefined,
+    type: "",
     appointmentDate: "",
     time: "",
-    disease: "",
-    address: "",
   });
   const history = useHistory();
   function navigate() {
@@ -40,8 +38,8 @@ export const Appointment = () => {
         localStorage.setItem("appointment", JSON.stringify(response.data));
         navigate();
       })
-      .catch((reponse) => {
-        console.log(reponse);
+      .catch((response) => {
+        console.log(response);
       });
   };
   const initialLoad = () => {
@@ -52,8 +50,8 @@ export const Appointment = () => {
         .then((response) => {
           setAppointment({ ...response.data });
         })
-        .catch((reponse) => {
-          console.log(reponse);
+        .catch((response) => {
+          console.log(response);
         });
     }
   };
@@ -91,49 +89,49 @@ export const Appointment = () => {
             }}
           >
             <Form.Row>
-              <h3>Add new Appointment</h3>
+              <h3>Book an Appointment</h3>
             </Form.Row>
             <Form.Row>
               <Form.Group as={Col} xs="6" controlId="validationFormik01">
-                <Form.Label>First name</Form.Label>
+                <Form.Label>Customer Name</Form.Label>
                 <Form.Control
                   size="sm"
                   type="text"
-                  name="firstName"
-                  value={values.firstName}
+                  name="customerName"
+                  value={values.customerName}
                   onChange={handleChange}
-                  isValid={touched.firstName && !errors.firstName}
+                  isValid={touched.customerName && !errors.customerName}
                 />
-                {errors.firstName}
+                {errors.customerName}
               </Form.Group>
 
               <Form.Group as={Col} xs="6" controlId="validationFormik02">
-                <Form.Label>Last name</Form.Label>
+                <Form.Label>Technician Name</Form.Label>
                 <Form.Control
                   size="sm"
                   type="text"
-                  name="lastName"
-                  value={values.lastName}
+                  name="technicianName"
+                  value={values.technicianName}
                   onChange={handleChange}
-                  isValid={touched.lastName && !errors.lastName}
+                  isValid={touched.technicianName && !errors.technicianName}
                 />
 
-                {errors.lastName}
+                {errors.technicianName}
               </Form.Group>
             </Form.Row>
             <Form.Row>
               <Form.Group as={Col} xs="6" controlId="validationFormik03">
-                <Form.Label>Doctor Name</Form.Label>
+                <Form.Label>Test Type</Form.Label>
                 <Form.Control
                   size="sm"
                   type="text"
-                  name="doctorName"
-                  value={values.doctorName}
+                  name="type"
+                  value={values.type}
                   onChange={handleChange}
-                  isValid={touched.doctorName && !errors.doctorName}
+                  isValid={touched.type && !errors.type}
                 />
 
-                {errors.doctorName}
+                {errors.type}
               </Form.Group>
               <Form.Group as={Col} xs="6" controlId="validationFormik04">
                 <Form.Label>Mobile No</Form.Label>
@@ -179,20 +177,6 @@ export const Appointment = () => {
             </Form.Row>
             <Form.Row>
               <Form.Group as={Col} xs="6" controlId="validationFormik08">
-                <Form.Label>Disease</Form.Label>
-                <Form.Control
-                  as="textarea"
-                  rows={3}
-                  size="sm"
-                  type="text"
-                  name="disease"
-                  value={values.disease}
-                  onChange={handleChange}
-                  isValid={touched.disease && !errors.disease}
-                />
-                {errors.disease}
-              </Form.Group>
-              <Form.Group as={Col} xs="6" controlId="validationFormik08">
                 <Form.Label>Address</Form.Label>
                 <Form.Control
                   as="textarea"
@@ -209,7 +193,7 @@ export const Appointment = () => {
             </Form.Row>
 
             <Button type="submit" style={{ marginBottom: "10px" }} size="sm">
-              Submit form
+              Book Appointment
           </Button>
           </Form>
         )}
