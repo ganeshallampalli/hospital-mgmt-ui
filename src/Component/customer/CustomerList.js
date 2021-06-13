@@ -1,8 +1,8 @@
 import axios from "axios";
-import React, { useEffect } from "react";
-import { Button, Col, Form, Pagination, Table } from "react-bootstrap";
-import { useHistory } from "react-router-dom";
-import { connect } from "react-redux";
+import React, {useEffect} from "react";
+import {Button, Col, Form, Pagination, Table} from "react-bootstrap";
+import {useHistory} from "react-router-dom";
+import {connect} from "react-redux";
 
 const CustomerList = (props) => {
   const [result, setResult] = React.useState({});
@@ -31,16 +31,16 @@ const CustomerList = (props) => {
       .then((response) => {
         getCustomersList();
       })
-      .catch((reponse) => {
-        console.log(reponse);
+      .catch((response) => {
+        console.log(response);
       });
   };
-  const newCustomer = () => {
-    history.push("/new-customer");
-  };
-  const editCustomer = (id) => {
-    history.push("/edit-customer/" + id);
-  };
+  // const newCustomer = () => {
+  //   history.push("/new-customer");
+  // };
+  // const editCustomer = (id) => {
+  //   history.push("/edit-customer/" + id);
+  // };
   const nextClick = (id) => {
     getCustomersList(pageNo + 1);
   };
@@ -64,8 +64,7 @@ const CustomerList = (props) => {
   };
   let editAllowed = false;
   if (
-    props?.user?.role === "ROLE_ADMIN" ||
-    props?.user?.role === "ROLE_RECEPTION"
+      props?.user?.role === "ROLE_ADMIN"
   ) {
     editAllowed = true;
   }
@@ -74,46 +73,16 @@ const CustomerList = (props) => {
       <Form.Row>
         <h3>Customer List</h3>
       </Form.Row>
-      <Form.Row>
-        <Form.Group as={Col} xs="4" controlId="validationFormik01">
-          <Form.Label>First name</Form.Label>
-          <Form.Control
-            type="text"
-            name="firstName"
-            size="sm"
-            ref={firstNameRef}
-          />
-        </Form.Group>
-
-        <Form.Group as={Col} xs="4" controlId="validationFormik02">
-          <Form.Label>Email Id</Form.Label>
-          <Form.Control
-            type="email"
-            name="emailid"
-            size="sm"
-            ref={emailIdRef}
-          />
-        </Form.Group>
-        <Col>
-          <Button style={{ marginTop: "32px" }} size="sm" onClick={search}>
-            Search
-          </Button>
-        </Col>
-      </Form.Row>
 
       <Table striped bordered hover size="sm">
         <thead>
           <tr>
             <th>#</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Username</th>
+            <th>Name</th>
             <th>Email Id</th>
             <th>Mobile No</th>
-            <th>Symptoms</th>
-            <th>City</th>
             <th>Address</th>
-            {editAllowed && <th></th>}
+            {/*{editAllowed && <th></th>}*/}
           </tr>
         </thead>
         <tbody>
@@ -128,28 +97,10 @@ const CustomerList = (props) => {
             return (
               <tr key={row.id}>
                 <td>{row.id}</td>
-                <td>{row.firstName}</td>
-                <td>{row.lastName}</td>
-                <td>{row.lastName}</td>
-                <td>{row.emailId}</td>
+                <td>{row.name}</td>
+                <td>{row.email}</td>
                 <td>{row.mobileNo}</td>
-                <td>{row.symptoms}</td>
-                <td>{row.city}</td>
                 <td>{row.address}</td>
-                {editAllowed && (
-                  <td>
-                    <Button size="sm" onClick={() => editCustomer(row.id)}>
-                      Edit
-                    </Button>
-                    <Button
-                      size="sm"
-                      className="ml-2"
-                      onClick={() => deleteCustomer(row.id)}
-                    >
-                      Delete
-                    </Button>
-                  </td>
-                )}
               </tr>
             );
           })}
@@ -162,9 +113,6 @@ const CustomerList = (props) => {
         >
           Previous
         </Pagination.Item>
-        {editAllowed && (
-          <Pagination.Item onClick={newCustomer}>New</Pagination.Item>
-        )}
         <Pagination.Item
           disabled={result?.last === undefined ? true : result?.last}
           onClick={nextClick}

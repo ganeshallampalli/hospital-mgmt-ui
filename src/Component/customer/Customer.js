@@ -6,45 +6,22 @@ import {useHistory, useRouteMatch} from "react-router-dom";
 import * as Yup from "yup";
 
 const schema = Yup.object().shape({
-  firstName: Yup.string().min(3).required("Required"),
-  lastName: Yup.string().min(3).required("Required"),
+  name: Yup.string().min(3).required("Required"),
   username: Yup.string().min(3).required("Required"),
   password: Yup.string().min(3).required("Required"),
-  emailId: Yup.string().email().required("Required"),
-  bloodGroup: Yup.string().min(3).required("Required"),
+  email: Yup.string().email().required("Required"),
   mobileNo: Yup.number().min(3).required("Required"),
-  gender: Yup.string().required("Required"),
-  dob: Yup.date().required("DOB is required"),
-  age: Yup.number().min(1).required("Required"),
-  // clinic: Yup.string().min(3).required("Required"),
-  // joiningDate: Yup.date().required("Joining Date is required"),
-  allergies: Yup.string().min(3).required("Required"),
-  city: Yup.string().min(3).required("Required"),
-  symptoms: Yup.string().min(3).required("Required"),
   address: Yup.string().min(3).required("Required"),
-  maritialStatus: Yup.string().min(3).required("Required"),
 });
 
 export const Customer = () => {
   const {params} = useRouteMatch();
   const [customer, setCustomer] = React.useState({
-    firstName: "",
-    lastName: "",
-    username: "",
+    name: "",
     password: "",
-    emailId: "",
-    bloodGroup: "",
+    email: "",
     mobileNo: "",
-    gender: "Male",
-    dob: "",
-    age: "",
-    // clinic: "",
-    // joiningDate: "2021-06-18",
-    allergies: "",
-    city: "",
-    symptoms: "",
     address: "",
-    maritialStatus: "Unmarried",
   });
   const history = useHistory();
 
@@ -60,9 +37,9 @@ export const Customer = () => {
           localStorage.setItem("user", JSON.stringify(response.data));
           navigate();
         })
-        .catch((reponse) => {
+        .catch((response) => {
           alert("Username already exists.");
-          console.log(reponse);
+          console.log(response);
         });
   };
   const initialLoad = () => {
@@ -73,8 +50,8 @@ export const Customer = () => {
           .then((response) => {
             setCustomer({...response.data});
           })
-          .catch((reponse) => {
-            console.log(reponse);
+          .catch((response) => {
+            console.log(response);
           });
     }
   };
@@ -120,12 +97,12 @@ export const Customer = () => {
                   <Form.Control
                       size="sm"
                       type="text"
-                      name="firstName"
-                      value={values.firstName}
+                      name="name"
+                      value={values.name}
                       onChange={handleChange}
-                      isValid={touched.firstName && !errors.firstName}
+                      isValid={touched.name && !errors.name}
                   />
-                  {errors.firstName}
+                  {errors.name}
                 </Form.Group>
 
                 <Form.Group as={Col} xs="6" controlId="validationFormik02">
@@ -176,13 +153,13 @@ export const Customer = () => {
                   <Form.Control
                       size="sm"
                       type="text"
-                      name="emailId"
-                      value={values.emailId}
+                      name="email"
+                      value={values.email}
                       onChange={handleChange}
-                      isValid={touched.emailId && !errors.emailId}
+                      isValid={touched.email && !errors.email}
                   />
 
-                  {errors.emailId}
+                  {errors.email}
                 </Form.Group>
                 <Form.Group as={Col} xs="6" controlId="validationFormik06">
                   <Form.Label>Blood Group</Form.Label>
