@@ -1,9 +1,10 @@
 import axios from "axios";
-import { Formik } from "formik";
-import React, { useEffect } from "react";
-import { Button, Col, Form } from "react-bootstrap";
-import { useHistory, useRouteMatch } from "react-router-dom";
+import {Formik} from "formik";
+import React, {useEffect} from "react";
+import {Button, Col, Form} from "react-bootstrap";
+import {useHistory, useRouteMatch} from "react-router-dom";
 import * as Yup from "yup";
+
 const schema = Yup.object().shape({
   customerName: Yup.string().min(3).required("Required"),
   technicianName: Yup.string().min(3),
@@ -18,6 +19,7 @@ const schema = Yup.object().shape({
 
 export const Appointment = () => {
   const { params } = useRouteMatch();
+  const [tests, setTests] = React.useState([]);
   const [appointment, setAppointment] = React.useState({
     customerName: "",
     technicianName: "",
@@ -33,7 +35,7 @@ export const Appointment = () => {
   }
   const saveAppointment = (values) => {
     axios
-      .post("/api/v1/appointment", { ...values })
+      .post("/api/v1/booking", { ...values })
       .then((response) => {
         localStorage.setItem("appointment", JSON.stringify(response.data));
         navigate();
@@ -42,7 +44,19 @@ export const Appointment = () => {
         console.log(response);
       });
   };
+
+  const getTestsList = (pageNo = 0) => {
+    axios
+        .get("/api/v1/test/all")
+        .then((response) => {
+          setTests(response.data.content);
+        })
+        .catch((response) => {
+          console.log(response);
+        });
+  };
   const initialLoad = () => {
+    getTestsList();
     const param = params;
     if (param.id) {
       axios
@@ -125,11 +139,17 @@ export const Appointment = () => {
                 <Form.Control
                   size="sm"
                   type="text"
+                  as="select"
+                  custom
                   name="type"
                   value={values.type}
                   onChange={handleChange}
                   isValid={touched.type && !errors.type}
-                />
+                >
+                  {tests && tests.map(test => {
+                    return <option value={test.name}>{test.name}</option>
+                  })}
+                </Form.Control>
 
                 {errors.type}
               </Form.Group>
