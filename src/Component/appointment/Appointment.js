@@ -174,19 +174,6 @@ export const Appointment = () => {
                         </Form.Group>
                     </Form.Row>
                     <Form.Row>
-                        {/*<Form.Group as={Col} xs="6" controlId="validationFormik06">*/}
-                        {/*    <Form.Label>Appointment Time</Form.Label>*/}
-                        {/*    <Form.Control*/}
-                        {/*        size="sm"*/}
-                        {/*        type="datetime-local"*/}
-                        {/*        name="appointmentTime"*/}
-                        {/*        value={values.appointmentTime}*/}
-                        {/*        onChange={handleChange}*/}
-                        {/*        isValid={touched.appointmentTime && !errors.appointmentTime}*/}
-                        {/*    />*/}
-
-                        {/*    {errors.appointmentTime}*/}
-                        {/*</Form.Group>*/}
                         <Form.Group as={Col} xs="6" controlId="validationFormik08">
                             <Form.Label>Address</Form.Label>
                             <Form.Control
@@ -210,10 +197,8 @@ export const Appointment = () => {
                                 showTimeSelect
                                 timeFormat="HH:mm"
                                 timeIntervals={30}
-                                // minTime={setHours(setMinutes(new Date(), 0), 9)}
-                                // maxTime={setHours(setMinutes(new Date(), 30), 18)}
                                 timeCaption="time"
-                                dateFormat="yyyy-MM-dd hh:mm"
+                                dateFormat="yyyy-MM-dd hh:mm aa"
                             />
                         </Form.Group>
                     </Form.Row>
