@@ -6,18 +6,12 @@ import {connect} from "react-redux";
 
 const AppointmentList = (props) => {
     const [result, setResult] = React.useState([]);
-    const [email, setEmail] = React.useState("");
     const history = useHistory();
     const dateRef = React.createRef();
     const testNameRef = React.createRef();
 
-    const getUser = () => {
-        //setEmail(JSON.parse(localStorage.getItem("user")).email);
-        setEmail(props?.user?.role);
-        getAppointmentsList(); // eslint-disable-next-line react-hooks/exhaustive-deps
-    };
-
     const getAppointmentsList = () => {
+        let email = JSON.parse(localStorage.getItem("user")).email;
         axios
             .get("/api/v1/booking/all", {params: {email}})
             .then((response) => {
@@ -28,7 +22,7 @@ const AppointmentList = (props) => {
             });
     };
     useEffect(() => {
-        getUser();
+        getAppointmentsList(); // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const newAppointment = () => {
