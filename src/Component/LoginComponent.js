@@ -161,18 +161,6 @@ const LoginComponent = (props) => {
                                                             </Form.Control.Feedback>
                                                         </InputGroup>
                                                     </Form.Group>
-                                                    <Form.Group as={Col} xs="6" controlId="validationFormik06">
-                                                        <Form.Label>Appointment Time</Form.Label>
-                                                        <DatePicker
-                                                            selected={dateTime}
-                                                            onChange={(date) => setDateTime(date)}
-                                                            showTimeSelect
-                                                            timeFormat="HH:mm"
-                                                            timeIntervals={30}
-                                                            timeCaption="time"
-                                                            dateFormat="MMMM d, yyyy hh:mm aa"
-                                                        />
-                                                    </Form.Group>
                                                 </Form.Row>
                                                 <Row>
                                                     <Col>
