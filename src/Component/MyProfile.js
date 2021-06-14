@@ -87,6 +87,7 @@ export const MyProfile = () => {
                             <Form.Group as={Col} xs="6" controlId="validationFormik01">
                                 <Form.Label>Name</Form.Label>
                                 <Form.Control
+                                    readOnly={true}
                                     size="sm"
                                     type="text"
                                     name="name"
@@ -100,6 +101,7 @@ export const MyProfile = () => {
                             <Form.Group as={Col} xs="6" controlId="validationFormik02">
                                 <Form.Label>Email</Form.Label>
                                 <Form.Control
+                                    readOnly={true}
                                     size="sm"
                                     type="text"
                                     name="email"
@@ -114,6 +116,7 @@ export const MyProfile = () => {
                             <Form.Group as={Col} xs="6" controlId="validationFormik03">
                                 <Form.Label>Username</Form.Label>
                                 <Form.Control
+                                    readOnly={true}
                                     size="sm"
                                     type="text"
                                     name="username"
@@ -126,6 +129,7 @@ export const MyProfile = () => {
                             <Form.Group as={Col} xs="6" controlId="validationFormik04">
                                 <Form.Label>Mobile No</Form.Label>
                                 <Form.Control
+                                    readOnly={true}
                                     size="sm"
                                     type="number"
                                     name="mobileNo"
@@ -137,9 +141,6 @@ export const MyProfile = () => {
                                 {errors.mobileNo}
                             </Form.Group>
                         </Form.Row>
-                        <Button type="submit" style={{ marginBottom: "10px" }} size="sm">
-                            Submit form
-                        </Button>
                     </Form>
                 )}
         </Formik>
